@@ -1,5 +1,5 @@
 name: Install xcflow
-description: Installs the pinned xcflow release on a Linux runner. xcflow plans and applies the Xcode Cloud workflows in XcodeCloud/.
+description: Installs xcflow, which keeps your Xcode Cloud workflows as JSON files in the repo. Review changes in pull requests, apply them on merge, catch drift nightly.
 author: Olaf Andreas Øvrum
 branding:
   icon: code
@@ -8,16 +8,16 @@ branding:
 runs:
   using: composite
   steps:
-    - name: Install xcflow 0.2.9
+    - name: Install xcflow 0.2.10
       shell: bash
       run: |
         case "$RUNNER_OS-$RUNNER_ARCH" in
-          Linux-X64) NAME="xcflow-0.2.9-linux-x86_64.tar.gz"; SUM="571e048f761911eab8b58ac8baccc81b4330de3b3bc841560fac2caecba41a3b" ;;
-          Linux-ARM64) NAME="xcflow-0.2.9-linux-aarch64.tar.gz"; SUM="79a238162f608e04d16641af5350692c1017fed6cb916e98800695d60fab57ce" ;;
+          Linux-X64) NAME="xcflow-0.2.10-linux-x86_64.tar.gz"; SUM="06f22a18d2c855a46c4f73659b0db7901f8eb0fe7f386e15d0a923869d772ac5" ;;
+          Linux-ARM64) NAME="xcflow-0.2.10-linux-aarch64.tar.gz"; SUM="914e5cfe4530e9e7cb177058a266d36e863191a263c383a89735a058cfb01a11" ;;
           *) echo "::error::This action installs xcflow on Linux runners only, not on $RUNNER_OS $RUNNER_ARCH. Use runs-on: ubuntu-latest."; exit 1 ;;
         esac
         ARCHIVE="$RUNNER_TEMP/xcflow.tar.gz"
-        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.2.9/$NAME"
+        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.2.10/$NAME"
         if [ -n "$SUM" ]; then
           echo "$SUM  $ARCHIVE" | shasum -a 256 -c -
         fi
