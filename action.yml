@@ -1,0 +1,24 @@
+name: Install xcflow
+description: Installs the pinned xcflow release on a Linux runner. xcflow plans and applies the Xcode Cloud workflows in XcodeCloud/.
+
+runs:
+  using: composite
+  steps:
+    - name: Install xcflow 0.2.8
+      shell: bash
+      run: |
+        case "$RUNNER_OS-$RUNNER_ARCH" in
+          Linux-X64) NAME="xcflow-0.2.8-linux-x86_64.tar.gz"; SUM="76be79b2b2510de900dce33cd56c89b3dbde6e6a0c0e099988570bea18461101" ;;
+          Linux-ARM64) NAME="xcflow-0.2.8-linux-aarch64.tar.gz"; SUM="6416ed3df3e57c31c2b3fadcc21dfaf4a9764beb224ab60b833a7dc55cb4df03" ;;
+          *) echo "::error::This action installs xcflow on Linux runners only, not on $RUNNER_OS $RUNNER_ARCH. Use runs-on: ubuntu-latest."; exit 1 ;;
+        esac
+        ARCHIVE="$RUNNER_TEMP/xcflow.tar.gz"
+        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.2.8/$NAME"
+        if [ -n "$SUM" ]; then
+          echo "$SUM  $ARCHIVE" | shasum -a 256 -c -
+        fi
+        mkdir -p "$RUNNER_TEMP/xcflow"
+        tar -xzf "$ARCHIVE" -C "$RUNNER_TEMP/xcflow"
+        echo "$RUNNER_TEMP/xcflow" >> "$GITHUB_PATH"
+        "$RUNNER_TEMP/xcflow/xcflow" --version
+
