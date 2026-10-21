@@ -8,16 +8,16 @@ branding:
 runs:
   using: composite
   steps:
-    - name: Install xcflow 0.2.11
+    - name: Install xcflow 0.2.12
       shell: bash
       run: |
         case "$RUNNER_OS-$RUNNER_ARCH" in
-          Linux-X64) NAME="xcflow-0.2.11-linux-x86_64.tar.gz"; SUM="30b583501bb09d6c2607533cb756e76bdc5045149444fb70e878b51c54da0e52" ;;
-          Linux-ARM64) NAME="xcflow-0.2.11-linux-aarch64.tar.gz"; SUM="a7f1d2ab5b7515e34cc94427c294d7b4b6730da71efa8e229495e2221730e290" ;;
+          Linux-X64) NAME="xcflow-0.2.12-linux-x86_64.tar.gz"; SUM="64bd6a1e8856a859793594bd1ef554cc519fd6330738e7052e4852a36ca0603a" ;;
+          Linux-ARM64) NAME="xcflow-0.2.12-linux-aarch64.tar.gz"; SUM="1d51c4dcbaebb35a81882db1bf592a196a5c59279e2d31f3fd2e2dc8d7da5549" ;;
           *) echo "::error::This action installs xcflow on Linux runners only, not on $RUNNER_OS $RUNNER_ARCH. Use runs-on: ubuntu-latest."; exit 1 ;;
         esac
         ARCHIVE="$RUNNER_TEMP/xcflow.tar.gz"
-        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.2.11/$NAME"
+        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.2.12/$NAME"
         if [ -n "$SUM" ]; then
           echo "$SUM  $ARCHIVE" | shasum -a 256 -c -
         fi
