@@ -8,16 +8,16 @@ branding:
 runs:
   using: composite
   steps:
-    - name: Install xcflow 0.3.0
+    - name: Install xcflow 0.4.0
       shell: bash
       run: |
         case "$RUNNER_OS-$RUNNER_ARCH" in
-          Linux-X64) NAME="xcflow-0.3.0-linux-x86_64.tar.gz"; SUM="743f2bade57f91d54002be96e87cc3f2abf32481f0b0d36d3dfe19706d97785d" ;;
-          Linux-ARM64) NAME="xcflow-0.3.0-linux-aarch64.tar.gz"; SUM="de6cc49de6a6a029fedcb1fe5fd54dfe62b8215ad11b5680bd0d65d0f6aaa5fc" ;;
+          Linux-X64) NAME="xcflow-0.4.0-linux-x86_64.tar.gz"; SUM="755da12e215bc169356da0b4a4b70089d5bba995280909601185ff14504e154a" ;;
+          Linux-ARM64) NAME="xcflow-0.4.0-linux-aarch64.tar.gz"; SUM="15228402ee51f9a40955c37ac06a71be25be342d3f653a1f00164dfcf2fd13fe" ;;
           *) echo "::error::This action installs xcflow on Linux runners only, not on $RUNNER_OS $RUNNER_ARCH. Use runs-on: ubuntu-latest."; exit 1 ;;
         esac
         ARCHIVE="$RUNNER_TEMP/xcflow.tar.gz"
-        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.3.0/$NAME"
+        curl -fsSL -o "$ARCHIVE" "https://github.com/OlafAndreas/xcflow/releases/download/v0.4.0/$NAME"
         if [ -n "$SUM" ]; then
           echo "$SUM  $ARCHIVE" | shasum -a 256 -c -
         fi
